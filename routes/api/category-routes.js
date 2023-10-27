@@ -6,20 +6,27 @@ const { Category, Product } = require('../../models');
   // be sure to include its associated Products
 router.get('/', async (req, res) => {
   try {
-    const allCategories = await Category.findAll({
-      include: [{ model: Product.belongsTo(Category)}]
+    const categories = await Category.findAll({
+      include: [{ model: Product }]
     });
-    res.status(200).json(allCategories);
+    res.status(200).json(categories);
   } catch (err) {
-    res.status(200).json(allCategories);
+    res.status(500).json(categories);
   }
 });
 
-
-router.get('/:id', (req, res) => {
-  // find one category by its `id` value
+ // find one category by its `id` value
   // be sure to include its associated Products
-});
+// router.get('/:id', async (req, res) => {
+//   try {
+//     const allCategories = await Category.findByPk({
+//       include: [{ model: Product.belongsTo(Category)}]
+//     });
+//     res.status(200).json(allCategories);
+//   } catch (err) {
+//     res.status(200).json(allCategories);
+//   }
+// });
 
 router.post('/', (req, res) => {
   // create a new category
